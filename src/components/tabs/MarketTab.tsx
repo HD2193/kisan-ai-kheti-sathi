@@ -102,6 +102,17 @@ const MarketTab: React.FC<MarketTabProps> = ({ language }) => {
     console.log('Voice market query:', { transcript, response });
   };
 
+  const handleCropClick = (crop: CropPrice) => {
+    console.log('Crop clicked:', crop);
+    // Here you can add navigation to detailed crop page or show modal with more info
+    alert(`Crop Details:
+${crop.icon} ${crop.crop}
+Current Price: ₹${crop.currentPrice.toLocaleString()} per ${crop.unit}
+Mandi: ${crop.mandi}
+7-day change: ${crop.change > 0 ? '+' : ''}${crop.change}%
+Previous Price: ₹${crop.previousPrice.toLocaleString()}`);
+  };
+
   const getTrendIcon = (trend: string) => {
     switch (trend) {
       case 'up':
@@ -223,7 +234,11 @@ const MarketTab: React.FC<MarketTabProps> = ({ language }) => {
         </div>
 
         {filteredPrices.map((crop, index) => (
-          <Card key={index} className="card-feature p-4">
+          <Card 
+            key={index} 
+            className="card-feature p-4 hover-scale cursor-pointer transition-all duration-200" 
+            onClick={() => handleCropClick(crop)}
+          >
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <div className="text-2xl">{crop.icon}</div>

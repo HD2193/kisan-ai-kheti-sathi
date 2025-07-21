@@ -160,7 +160,7 @@
   }
   
   .card-feature {
-    @apply bg-card border border-border rounded-xl p-4 shadow-sm hover:shadow-md hover:border-primary/30 transition-all duration-300 cursor-pointer group;
+    @apply bg-card border border-border rounded-xl p-4 shadow-sm hover:shadow-md hover:border-primary/30 transition-all duration-300 cursor-pointer;
   }
   
   .text-dual-lang {

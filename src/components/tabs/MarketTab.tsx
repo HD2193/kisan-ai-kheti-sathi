@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import VoiceButton from '@/components/VoiceButton';
+import { getTranslation } from '@/lib/languages';
 import { 
   TrendingUp, 
   TrendingDown, 
@@ -33,7 +34,7 @@ const MarketTab: React.FC<MarketTabProps> = ({ language }) => {
   const [selectedState] = useState('Maharashtra');
   const [cropPrices] = useState<CropPrice[]>([
     {
-      crop: 'Wheat',
+      crop: 'wheat',
       icon: '🌾',
       currentPrice: 2150,
       previousPrice: 2080,
@@ -43,7 +44,7 @@ const MarketTab: React.FC<MarketTabProps> = ({ language }) => {
       mandi: 'Pune APMC'
     },
     {
-      crop: 'Rice',
+      crop: 'rice',
       icon: '🌾',
       currentPrice: 1950,
       previousPrice: 1980,
@@ -53,7 +54,7 @@ const MarketTab: React.FC<MarketTabProps> = ({ language }) => {
       mandi: 'Mumbai APMC'
     },
     {
-      crop: 'Soybean',
+      crop: 'soybean',
       icon: '🫛',
       currentPrice: 4200,
       previousPrice: 4150,
@@ -63,7 +64,7 @@ const MarketTab: React.FC<MarketTabProps> = ({ language }) => {
       mandi: 'Nagpur APMC'
     },
     {
-      crop: 'Cotton',
+      crop: 'cotton',
       icon: '🌱',
       currentPrice: 5800,
       previousPrice: 5850,
@@ -73,7 +74,7 @@ const MarketTab: React.FC<MarketTabProps> = ({ language }) => {
       mandi: 'Aurangabad APMC'
     },
     {
-      crop: 'Onion',
+      crop: 'onion',
       icon: '🧅',
       currentPrice: 800,
       previousPrice: 820,
@@ -83,7 +84,7 @@ const MarketTab: React.FC<MarketTabProps> = ({ language }) => {
       mandi: 'Nashik APMC'
     },
     {
-      crop: 'Tomato',
+      crop: 'tomato',
       icon: '🍅',
       currentPrice: 1200,
       previousPrice: 1000,
@@ -94,8 +95,12 @@ const MarketTab: React.FC<MarketTabProps> = ({ language }) => {
     }
   ]);
 
+  const getCropName = (cropKey: string) => {
+    return getTranslation(cropKey as keyof typeof import('@/lib/languages').translations, language);
+  };
+
   const filteredPrices = cropPrices.filter(crop =>
-    crop.crop.toLowerCase().includes(searchQuery.toLowerCase())
+    getCropName(crop.crop).toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const handleVoiceQuery = (transcript: string, response: string) => {
@@ -140,14 +145,11 @@ Previous Price: ₹${crop.previousPrice.toLocaleString()}`);
       {/* Header */}
       <div className="pt-4">
         <h1 className="text-2xl font-bold text-foreground mb-2">
-          Market Prices
+          {getTranslation('marketPrices', language)}
         </h1>
         <div className="text-dual-lang">
           <p className="text-primary-lang text-muted-foreground">
-            Real-time mandi prices and market trends
-          </p>
-          <p className="text-secondary-lang text-sm text-muted-foreground">
-            वर्तमान मंडी भाव और बाजार की जानकारी
+            {getTranslation('realTimeMandiPrices', language)}
           </p>
         </div>
       </div>
@@ -178,7 +180,7 @@ Previous Price: ₹${crop.previousPrice.toLocaleString()}`);
       <div className="relative">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
         <Input
-          placeholder="Search crops... (e.g., wheat, rice, cotton)"
+          placeholder={getTranslation('searchCrops', language)}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="pl-10"
@@ -189,7 +191,7 @@ Previous Price: ₹${crop.previousPrice.toLocaleString()}`);
       <Card className="card-kisan">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-foreground">
-            Today's Summary
+            {getTranslation('todaySummary', language)}
           </h3>
           <div className="flex items-center space-x-2 text-sm text-muted-foreground">
             <Calendar className="w-4 h-4" />
@@ -201,21 +203,21 @@ Previous Price: ₹${crop.previousPrice.toLocaleString()}`);
           <div className="text-center">
             <div className="flex items-center justify-center space-x-1 mb-1">
               <TrendingUp className="w-4 h-4 text-success" />
-              <span className="text-xs text-muted-foreground">Rising</span>
+              <span className="text-xs text-muted-foreground">{getTranslation('rising', language)}</span>
             </div>
             <p className="text-lg font-bold text-success">4</p>
           </div>
           <div className="text-center">
             <div className="flex items-center justify-center space-x-1 mb-1">
               <TrendingDown className="w-4 h-4 text-destructive" />
-              <span className="text-xs text-muted-foreground">Falling</span>
+              <span className="text-xs text-muted-foreground">{getTranslation('falling', language)}</span>
             </div>
             <p className="text-lg font-bold text-destructive">2</p>
           </div>
           <div className="text-center">
             <div className="flex items-center justify-center space-x-1 mb-1">
               <div className="w-4 h-4 bg-muted-foreground rounded-full"></div>
-              <span className="text-xs text-muted-foreground">Stable</span>
+              <span className="text-xs text-muted-foreground">{getTranslation('stable', language)}</span>
             </div>
             <p className="text-lg font-bold text-muted-foreground">0</p>
           </div>
@@ -226,10 +228,10 @@ Previous Price: ₹${crop.previousPrice.toLocaleString()}`);
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-semibold text-foreground">
-            Current Prices
+            {getTranslation('currentPrices', language)}
           </h3>
           <Button variant="outline" size="sm">
-            Refresh
+            {getTranslation('refresh', language)}
           </Button>
         </div>
 
@@ -244,7 +246,7 @@ Previous Price: ₹${crop.previousPrice.toLocaleString()}`);
                 <div className="text-2xl">{crop.icon}</div>
                 <div>
                   <h4 className="font-semibold text-foreground">
-                    {crop.crop}
+                    {getCropName(crop.crop)}
                   </h4>
                   <p className="text-sm text-muted-foreground">
                     {crop.mandi}
@@ -260,7 +262,7 @@ Previous Price: ₹${crop.previousPrice.toLocaleString()}`);
                   {getTrendIcon(crop.trend)}
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  per {crop.unit}
+                  {getTranslation('per', language)} {getTranslation('quintal', language)}
                 </p>
                 <div className={`text-xs ${getTrendColor(crop.trend)}`}>
                   {crop.trend === 'up' ? '+' : ''}{crop.change}%
@@ -271,7 +273,7 @@ Previous Price: ₹${crop.previousPrice.toLocaleString()}`);
             {/* Price Chart Placeholder */}
             <div className="mt-4 h-12 bg-muted/30 rounded-lg flex items-center justify-center">
               <span className="text-xs text-muted-foreground">
-                7-day trend chart
+                {getTranslation('sevenDayTrendChart', language)}
               </span>
             </div>
           </Card>
@@ -286,7 +288,7 @@ Previous Price: ₹${crop.previousPrice.toLocaleString()}`);
           </div>
           <div>
             <h3 className="text-sm font-semibold text-foreground mb-2">
-              AI Recommendation
+              {getTranslation('aiRecommendation', language)}
             </h3>
             <p className="text-sm text-muted-foreground">
               Tomato prices are showing strong upward trend (+20%). Consider selling in next 2-3 days for better returns.

@@ -1,42 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Kisan AI Design System - Inspired by Indian agriculture */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Kisan AI Color Palette */
+    --background: 48 50% 98%; /* Off-white with slight warmth */
+    --foreground: 220 13% 26%; /* Dark gray for text */
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 220 13% 26%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 220 13% 26%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary: Leaf Green - Main brand color */
+    --primary: 88 50% 35%; /* #558B2F equivalent */
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 88 50% 45%;
+    --primary-glow: 88 60% 65%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary: Soil Brown - Trust and earthiness */
+    --secondary: 20 25% 35%; /* #6D4C41 equivalent */
+    --secondary-foreground: 0 0% 100%;
+    --secondary-light: 20 25% 50%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Accent: Sun Yellow - CTAs and highlights */
+    --accent: 45 90% 58%; /* #FDD835 equivalent */
+    --accent-foreground: 220 13% 26%;
+    --accent-light: 45 90% 70%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Muted tones */
+    --muted: 48 20% 95%;
+    --muted-foreground: 220 13% 55%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Status colors */
+    --success: 140 70% 45%;
+    --success-foreground: 0 0% 100%;
+    
+    --warning: 35 90% 55%;
+    --warning-foreground: 0 0% 100%;
+    
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Borders and inputs */
+    --border: 220 13% 85%;
+    --input: 220 13% 90%;
+    --ring: 88 50% 35%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Gradients for modern look */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-light)));
+    --gradient-hero: linear-gradient(180deg, hsl(var(--background)), hsl(var(--muted)));
+
+    /* Shadows for depth */
+    --shadow-card: 0 2px 8px -2px hsl(var(--primary) / 0.1);
+    --shadow-button: 0 4px 12px -2px hsl(var(--primary) / 0.25);
+    --shadow-glow: 0 0 20px hsl(var(--accent) / 0.3);
+
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +131,111 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-mukta;
+    font-family: 'Mukta', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-mukta font-semibold;
+  }
+}
+
+@layer components {
+  /* Kisan AI Component Styles */
+  
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 font-medium rounded-lg px-6 py-3 transition-all duration-300 shadow-md hover:shadow-lg active:scale-95;
+  }
+  
+  .btn-accent {
+    @apply bg-accent text-accent-foreground hover:bg-accent/90 font-medium rounded-lg px-6 py-3 transition-all duration-300 shadow-md hover:shadow-lg active:scale-95;
+  }
+  
+  .btn-voice {
+    @apply bg-gradient-to-r from-primary to-primary-glow text-white rounded-full p-4 shadow-lg hover:shadow-xl active:scale-95 transition-all duration-300;
+  }
+  
+  .card-kisan {
+    @apply bg-card border border-border rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300;
+  }
+  
+  .card-feature {
+    @apply bg-card border border-border rounded-xl p-4 shadow-sm hover:shadow-md hover:border-primary/30 transition-all duration-300 cursor-pointer group;
+  }
+  
+  .text-dual-lang {
+    @apply flex flex-col items-center gap-1;
+  }
+  
+  .text-primary-lang {
+    @apply text-base font-medium text-foreground;
+  }
+  
+  .text-secondary-lang {
+    @apply text-sm text-muted-foreground;
+  }
+  
+  .nav-tab {
+    @apply flex flex-col items-center gap-1 p-3 rounded-lg transition-all duration-200;
+  }
+  
+  .nav-tab.active {
+    @apply bg-primary/10 text-primary;
+  }
+  
+  .nav-tab:not(.active) {
+    @apply text-muted-foreground hover:text-foreground hover:bg-muted/50;
+  }
+  
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+  
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+  
+  .glow-accent {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .animate-bounce-subtle {
+    animation: bounce-subtle 2s infinite;
+  }
+  
+  .animate-pulse-glow {
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+}
+
+@layer utilities {
+  .font-mukta {
+    font-family: 'Mukta', sans-serif;
+  }
+}
+
+/* Custom animations */
+@keyframes bounce-subtle {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-4px);
+  }
+  60% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px hsl(var(--accent) / 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px hsl(var(--accent) / 0.5);
   }
 }

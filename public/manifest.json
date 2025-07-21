@@ -1,0 +1,21 @@
+{
+  "name": "Kisan AI - Your Digital Farming Assistant",
+  "short_name": "Kisan AI",
+  "description": "AI-powered multilingual farming assistant for Indian farmers",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#558B2F",
+  "theme_color": "#558B2F",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": ["agriculture", "farming", "ai", "productivity"],
+  "lang": "en",
+  "scope": "/",
+  "prefer_related_applications": false
+}
